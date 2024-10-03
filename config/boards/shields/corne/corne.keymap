@@ -17,15 +17,24 @@
 #define DANGER  3
 
 / {
+    // add easter egg
     macros {
-	hello: hello {
-            label = "hello";
+        smiley: smiley {
+            label = "EASTER_SMILEY";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings
-                = <&macro_tap_time 10>
-		,<&macro_tap &kp H &kp E &kp L &kp L &kp O>
+                = <&macro_tap &kp COLON &kp RPAR>
                 ;
+        };
+    };
+
+    // Activate DANGER layer by pressing raise and lower
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+        adjust_layer {
+            if-layers = <LOWER RAISE>;
+            then-layer = <DANGER>;
         };
     };
 };
@@ -34,47 +43,33 @@
 / {
     combos {
         compatible = "zmk,combos";
- 	 combo_del {
+        
+        combo_undo {
             timeout-ms = <COMBO_TIMEOUT>;
-            key-positions = <11 12 13>;
-            bindings = <&mt RALT DEL>;
+            key-positions = <25 26>;
+            bindings = <&kp LC(Z)>;
         };
-	 combo_cw {
-            timeout-ms = <COMBO_TIMEOUT>;
-            key-positions = <2 3 4>;
-            bindings = <&caps_word>;
-        };
-	 combo_tab {
-            timeout-ms = <COMBO_TIMEOUT>;
-            key-positions = <10 11 12>;
-            bindings = <&mt K_CONTEXT_MENU TAB>;
-        };
-	 combo_row {
-            timeout-ms = <COMBO_TIMEOUT>;
-            key-positions = <12 13 14>;
-            bindings = <&kp LS(HOME)>;
-        };
-	 combo_esc {
-            timeout-ms = <COMBO_TIMEOUT>;
-            key-positions = <0 1 2>;
-            bindings = <&kp ESC>;
-	 };
-	 combo_ctlbksp {
-            timeout-ms = <COMBO_TIMEOUT>;
-            key-positions = <6 7 8>;
-            bindings = <&kp LC(BSPC)>;
-        };
-	 combo_bksp {
-            timeout-ms = <COMBO_TIMEOUT>;
-            key-positions = <16 17 18>;
-            bindings = <&kp BSPC>;
-        };
-    };
-};
 
-&caps_word {
-	continue-list = <UNDERSCORE MINUS BACKSPACE DELETE HOME END LEFT RIGHT>;
-};
+        combo_copy {
+            timeout-ms = <COMBO_TIMEOUT>;
+            key-positions = <26 27>;
+            bindings = <&kp LC(C)>;
+        };
+
+        combo_paste {
+            timeout-ms = <COMBO_TIMEOUT>;
+            key-positions = <27 28>;
+            bindings = <&kp LC(V)>;
+        };
+
+ 	    combo_tilde {
+            timeout-ms = <COMBO_TIMEOUT>;
+            key-positions = <0 1>;
+            bindings = <&kp TILDE>;
+        };
+
+    };
+}; 
 
 &kscan0 {
 	debounce-period = <20>;
@@ -92,7 +87,6 @@
             flavor = "tap-preferred";
 			bindings = <&mo>, <&kp>;
         };
-
         hm: homerow_mods {
             compatible = "zmk,behavior-hold-tap";
             label = "HOMEROW_MODS";
@@ -123,45 +117,56 @@
 // |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  | 
 // |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |
 // |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  | 
-//             | GUI | LWR | ENT |   | SPC | RSE  | ALT |
+//             | ALT | LWR | ENT |   | SPC | RSE  | ALT |
                         bindings = <
-   &kp Q &kp W &kp E &kp R &kp T   &kp Y &kp U  &kp I     &kp O   &kp P
-   &kp A &kp S &kp D &kp F &kp G   &kp H &kp J  &kp K &kp L   &kp SQT
-   &mt LSHFT Z &kp X &kp C &kp V &kp B   &kp N &kp M  &kp COMMA &kp DOT &mt RSHFT FSLH
-        &kp LGUI &bh 1 HOME &mt LCTRL RET   &kp SPACE &bh 2 END &mt RALT LG(V)
+&kp ESC   &kp Q  &kp W    &kp E     &kp R     &kp T                            &kp Y       &kp U       &kp I       &kp O    &kp P    &kp BSPC
+&kp LCTRL &kp A  &kp S    &kp D     &kp F     &kp G                           &kp H       &kp J       &kp K       &kp L    &kp SEMI &kp SQT
+&kp LSHFT &kp Z  &kp X    &kp C     &kp V     &kp B                           &kp N       &kp M       &kp COMMA   &kp DOT  &kp FSLH &kp DELETE
+                                    &kp LALT  &mo LOWER &kp SPACE &kp RET     &mo RAISE   &kp RALT
                         >;
 		label = "BASE";
                 };
-                lower_layer {
 
+
+
+
+
+                lower_layer {
                         bindings = <
-   &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_CLR     &kp PG_UP &kp N7 &kp N8 &kp N9 &kp BSPC
-   &kp F2       &hm LCTRL F3  &hm LSHFT F4  &hm LALT F5  &hm LGUI F6         &kp PG_DN &kp N4 &kp N5 &kp N6 &kp BSLH
-   &kp F7       &kp F8       &kp F10      &kp F11      &kp F12        &kp INS &kp N1 &kp N2 &kp N3  &kp LC(RET)
-               	        &kp LC(LA(LSHFT)) &trans       &mt RALT RET      &mt LCTRL F1  &kp N0  &mt LSHFT DOT
+
+&kp GRAVE   &kp N1      &kp N2      &kp N3      &kp N4      &kp N5                          &kp N6      &kp N7      &kp N8          &kp N9      &kp N0    &kp F12
+&kp TAB     &kp EXCL    &kp AT      &kp HASH    &kp DLLR    &kp PRCNT                       &kp CARET   &kp AMPS    &kp KP_MULTIPLY &kp LPAR    &kp RPAR  &kp PIPE
+&kp RSHFT   &kp MINUS   &kp EQUAL   &kp KP_PLUS &kp LBRC    &kp RBRC                        &kp LBKT    &kp RBKT    &kp LT          &kp GT      &kp BSLH  &kp UNDER
+                                                &kp LGUI      &trans      &trans  &trans    &trans      &kp CAPS
                         >;
 		label = "Numbers";
-                };
+                };  
+
+
+
 
                 raise_layer {
 
                         bindings = <
-   &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT             &kp CARET &kp AMPS  &kp KP_MULTIPLY &kp LPAR &kp RPAR 
-   &kp TAB   &kp CAPS &kp F13   &out OUT_TOG &kp LGUI      &kp MINUS &kp EQUAL &kp LBRC &kp RBRC &kp PIPE 
-   &kp ESC   &kp GRAVE &kp QMARK   &kp F9   &kp F17             &kp UNDER &kp PLUS  &kp LBKT &kp RBKT &kp BSLH 
-        	     &kp LCTRL &kp LALT   &mt LSHFT LS(INS)   &kp RET   &trans    &mt RALT TILDE
+&trans &kp F1       &kp F2      &kp F3      &kp F4      &kp F5                      &kp F6          &kp F7          &kp F8          &kp F9          &kp F10         &kp F11
+&trans &trans       &trans      &trans      &trans      &trans                      &trans          &kp HOME        &kp UP          &kp END         &trans          &kp F12
+&trans &trans       &trans      &trans      &trans      &trans                      &trans          &kp LEFT        &kp DOWN        &kp RIGHT       &trans          &trans 
+                                            &trans      &trans      &trans  &trans  &trans          &kp PSCRN
                         >;
-		label = "Symbols";
+		label = "Misc";
 		};
 		
+
+
+
 		danger_layer {
 
-                        bindings = <
-   &bootloader  &kp AT &kp HASH &kp PAUSE_BREAK &kp SLCK              &kp C_VOL_UP &hm LC(V) LC(C)  &hello &kp LC(LA(DEL)) &bootloader 
-   &trans   &trans &kp LC(LSHFT)  &mt LSHFT UP   &mt LCTRL PSCRN   &kp C_VOL_DN &trans &trans        &kp UP &kp SEMI 
-   &kp LNLCK   &trans &kp LEFT &kp DOWN &kp RIGHT              &kp C_MUTE &trans  &kp LEFT        &kp DOWN &kp RIGHT 
-        	     &kp LG(Z) &kp LG(X)   &kp LG(C)   &kp LC(LA(W))   &kp LC(LA(P))    &kp LC(LA(R))
-                        >;
+            bindings = <
+&bt BT_CLR  &bt BT_SEL 0    &bt BT_SEL 1    &bt BT_SEL 2    &bt BT_SEL 3    &bt BT_SEL 4                          &none &none &none &none &none &none
+&none       &none           &none           &none           &none           &none                                 &none &none &none &none &none &none
+&none       &none           &none           &none           &none           &none                                 &none &none &none &none &none &bootloader
+                                                            &none           &none               &none  &none      &none &none
+            >;
                 label = "**DANGER**";
 		};
         };
