@@ -22,3 +22,11 @@ include:
     shield: corne_left
   - board: seeeduino_xiao_ble
     shield: corne_right
+  - board: seeeduino_xiao_ble
+    shield: settings_reset
+
+  # Add custom dongle and a peripheral left corne
+  - board: seeeduino_xiao_ble
+    shield: corne_dongle
+  - board: seeeduino_xiao_ble
+    shield: corne_peripheral_left
