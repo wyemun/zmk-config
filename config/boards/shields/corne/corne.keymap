@@ -140,7 +140,7 @@
 
                 raise_layer {
                         bindings = <
-&trans &trans       &trans      &trans      &trans      &trans                      &trans          &kp HOME    Z    &kp UP          &kp END         &trans          &kp F12
+&trans &trans       &trans      &trans      &trans      &trans                      &trans          &kp HOME        &kp UP          &kp END         &trans          &kp F12
 &trans &trans       &trans      &trans      &trans      &trans                      &trans          &kp LEFT        &kp DOWN        &kp RIGHT       &trans          &trans 
 &trans &trans       &trans      &trans      &trans      &trans                      &trans          &trans          &trans          &trans          &trans          &trans 
                                             &trans      &trans      &trans  &trans  &kp LGUI        &kp PSCRN
