@@ -115,7 +115,7 @@
 &trans &trans       &trans      &trans      &trans      &kp C_VOLUME_UP                           &kp PAGE_UP      &kp HOME        &kp UP          &kp END         &none          &kp F12
 &trans &trans       &trans      &trans      &trans      &kp C_VOLUME_DOWN                         &kp PAGE_DOWN    &kp LEFT        &kp DOWN        &kp RIGHT       &none          &none 
 &trans &trans       &trans      &trans      &trans      &kp C_MUTE                                &none            &none           &none           &none           &none          &trans 
-                                            &trans      &trans              &trans  &trans        &kp LGUI         &kp PSCRN
+                                            &trans      &trans              &trans  &kp LGUI      &trans                 &kp PSCRN
                         >;
 		label = "Misc";
 		};
